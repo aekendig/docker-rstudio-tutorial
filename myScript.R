@@ -1,3 +1,7 @@
+# install packages (if needed)
+install.packages("nlme")
+install.packages("ggplot2")
+
 # load packages
 library(nlme)
 library(ggplot2)
