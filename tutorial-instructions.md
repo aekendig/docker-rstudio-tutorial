@@ -1,6 +1,34 @@
 # docker-rstudio-tutorial
+
+[Set-up: software installation](#setup)  
+[1: Run data analysis locally](#local)  
+[2: Run template Docker container](#template)
+[3: Build your own Docker container](#build)
  
-The objective of this tutorial is to learn how to create a Docker container that specifies an RStudio environment in order to reproduce a simple data analysis. The specifications include the versions of RStudio and two packages. This tutorial is aimed at new users of Docker. Prior experience with Rstudio is helpful, but  not required. You will need to download and install RStudio at https://rstudio.com/ and Docker Desktop at https://www.docker.com/. In the process, you should create a Docker Hub login. See the PDF for more background information
+### Set-up: software installation <a name="setup"></a>
+
+Please install (or update) these programs:  
+1.	R  
+2.	RStudio  
+3.	Docker Desktop or Toolbox*  
+
+R and RStudio installation guides from Data Carpentry can be found here: https://datacarpentry.org/R-ecology-lesson/index.html#setup_instructions  
+Open the programs and check for errors.  
+
+Docker Desktop installation guides from Cyverse can be found here (Section 2): https://github.com/sanjanasudarshan/container_camp_workshop_2019/blob/master/docker/dockerintro.rst  
+Test the Docker installation by following Section 2.1.  
+
+*Older versions of Mac and Windows may need to install Docker Toolbox instead of Docker Desktop:  
+https://docs.docker.com/toolbox/toolbox_install_windows/  
+https://docs.docker.com/toolbox/toolbox_install_mac/  
+ 
+When you install Docker Desktop/Toolbox, you’ll create a Docker Hub username and password. We will use these during the tutorial.
+
+### 1: Run data analysis locally <a name="local"></a>
+
+### 2: Run template Docker container <a name="template"></a>
+
+### 3: Build your own Docker container <a name="build"></a>
 
 ### Tutorial 
 
