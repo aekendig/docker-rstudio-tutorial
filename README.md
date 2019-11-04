@@ -5,9 +5,9 @@ This tutorial provides an introduction on how to use Docker and RStudio to creat
 2. Run a template Docker container  
 3. Build upon the template Docker container to create your own  
 
-To do the tutorial, see "tutorial-instructions".  
+To do the tutorial, see "tutorial-instructions.md".  
 
-PDF documents provide more background and details.  
+PDF documents provide more background and details (presentations for lab meeting and R-Ladies Gainesville).  
 
 Tutorial testing and feedback: Zach Moore, Luke Flory, Drew Hiatt, Whalen Dillon, Tabitha Petri, Steven Cabrera, Suzy Canavan, Seokmin Kim, Callie San Antonio, Jesse Borden, Sam Scherneck
 
