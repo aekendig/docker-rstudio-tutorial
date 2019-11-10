@@ -90,15 +90,16 @@ SET docker_username=<enter-your-Docker-Hub-username>
 ECHO %docker_username%
 ```
  
-* Run a Docker container. Explanation of code:    
+* Run the Docker container. 
+```
+docker run -d -e USER=$rstudio_username -e PASSWORD=$rstudio_password -p 8787:8787 rocker/tidyverse
+```
+* Explanation of code:    
     - Run the container in the background (-d = detached)
     - Set the USER and PASSWORD environmental variables (-e)
     - Map a port from the inside of the Docker container to your browser (-p 8787:8787)
     - Name of the image used to build the container (rocker/tidyverse)
-```
-docker run -d -e USER=$rstudio_username -e PASSWORD=$rstudio_password -p 8787:8787 rocker/tidyverse
-```
-* Navigate to localhost:8787 in your browser.
+* Once the "docker run" code is done running, navigate to localhost:8787 in your browser.
 * Login using the RStudio username and password you specified earlier.
 * Test out RStudio (this is the product of the container).
 * Stop the Docker container by listing the running containers and then using the container ID to stop it (delete the < > symbols).  
