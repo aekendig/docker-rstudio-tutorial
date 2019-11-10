@@ -2,7 +2,7 @@
 
 [Set-up: software installation](#setup)  
 [1: Run data analysis locally](#local)  
-[2: Run template Docker container](#template)
+[2: Run template Docker container](#template)  
 [3: Build your own Docker container](#build)
  
 ### Set-up: software installation <a name="setup"></a>
