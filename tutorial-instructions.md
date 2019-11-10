@@ -41,25 +41,79 @@ We'll start by running a statistical analysis and visualization of a dataset tha
 
 ### 2: Run template Docker container <a name="template"></a>
 
-### 3: Build your own Docker container <a name="build"></a>
+We'll test the Docker installation and run a container created by [Rocker](https://www.rocker-project.org/). To interact with Docker, copy and paste the following into your Terminal/Command Prompt. Windows users [cannot use PowerShell ISE](https://docs.docker.com/docker-for-windows/) and may need to work in Command Prompt, Bash, or PowerShell. 
 
-### Tutorial 
-
-Testing the Docker installation
+* Test the Docker installation
+    - You should get a message starting with "Hello from Docker!"  
 ```
 docker run hello-world
 ```
-Running a Docker container
+* Save three variables: a new username to login to RStudio, a new password to login to RStudio, and your Docker Hub username (that you created while installing Docker). Alternative code for Windows is provided second.
+    - Replace the text between the symbols (< >) with your text and remove the symbols.   
 ```
-docker run -d -e USER=<username> -e PASSWORD=<password> -p 8787:8787 rocker/tidyverse
+rstudio_username=<enter-your-new-RStudio-username>
 ```
-Stopping a Docker container
+```
+echo $rstudio_username
+```
+````
+rstudio_password=<enter-your-new-RStudio-password>
+````
+```
+echo $rstudio_password
+```
+````
+docker_username=<enter-your-Docker-Hub-username>
+````
+```
+echo $docker_username
+```
+
+* Alternative code for Windows.  
+    - If you use this code, substitute $text for %text% in future steps.
+```
+SET rstudio_username=<enter-your-new-RStudio-username>
+```
+```
+ECHO %rstudio_username%
+```
+````
+SET rstudio_password=<enter-your-new-RStudio-password>
+````
+```
+ECHO %rstudio_password%
+```
+````
+SET docker_username=<enter-your-Docker-Hub-username>
+````
+```
+ECHO %docker_username%
+```
+ 
+* Run a Docker container. Explanation of code:    
+    - Run the container in the background (-d = detached)
+    - Set the USER and PASSWORD environmental variables (-e)
+    - Map a port from the inside of the Docker container to your browser (-p 8787:8787)
+    - Name of the image used to build the container (rocker/tidyverse)
+```
+docker run -d -e USER=$rstudio_username -e PASSWORD=$rstudio_password -p 8787:8787 rocker/tidyverse
+```
+* Navigate to localhost:8787 in your browser.
+* Login using the RStudio username and password you specified earlier.
+* Test out RStudio (this is the product of the container).
+* Stop the Docker container by listing the running containers and then using the container ID to stop it (delete the < > symbols).  
 ```
 docker ps
 ```
 ```
-docker stop <container ID>
+docker stop <paste-container-ID>
 ```
+
+### 3: Build your own Docker container <a name="build"></a>
+
+### Tutorial 
+
+
 Write the Dockerfile
 ```
 cd <file path to docker-rstudio-tutorial>
