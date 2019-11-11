@@ -1,4 +1,4 @@
-# Reproducible data science with Docker and RStudio
+# Reproducible data analysis with Docker and RStudio
 
 Docker and RStudio are two tools that can be used to increase the reproducibility of your data analysis. Such tools can make it easier for collaborators, other scientists, and "future you" to re-run statistics and create visualizations. This tutorial provides a very simple example of "containerizing" an R script and packages. There are certainly cases in which this example will fail to reproduce the data analysis. Reproducibility is a complex problem that requires continuous effort.  
  
