@@ -34,7 +34,9 @@ We'll start by running a statistical analysis and visualization of a dataset tha
     - Copy and paste it into a new R script in RStudio  
     - Browser menu: File -> Save Page As…  
 * Open the script in RStudio
-* Run the script and examine the output
+* Run the script and examine the output  
+* Comment out the "install packages" lines (#) once you've run these
+* Save the file
 
 *I don’t encourage saving things on your desktop, but it will make the rest of the tutorial easier if you do 
 
@@ -43,13 +45,15 @@ We'll start by running a statistical analysis and visualization of a dataset tha
 
 We'll test the Docker installation and run a container created by [Rocker](https://www.rocker-project.org/). To interact with Docker, copy and paste the following into your Terminal/Command Prompt. Windows users [cannot use PowerShell ISE](https://docs.docker.com/docker-for-windows/) and may need to work in Command Prompt, Bash, or PowerShell. 
 
-* Test the Docker installation
+* Start Docker Desktop if it isn't already running by double clicking on the icon  
+* Test the Docker installation:
     - You should get a message starting with "Hello from Docker!"  
 ```
 docker run hello-world
 ```
-* Save three variables: a new username to login to RStudio, a new password to login to RStudio, and your Docker Hub username (that you created while installing Docker). Alternative code for Windows is provided second.
-    - Replace the text between the symbols (< >) with your text and remove the symbols.   
+* Save three variables: a new username to login to RStudio, a new password to login to RStudio, and your Docker Hub username (that you created while installing Docker)
+    - Replace the text between the symbols (< >) with your text and remove the symbols   
+* Code for Mac/bash/Powershell(?):  
 ```
 rstudio_username=<enter-your-new-RStudio-username>
 ```
@@ -69,8 +73,8 @@ docker_username=<enter-your-Docker-Hub-username>
 echo $docker_username
 ```
 
-* Alternative code for Windows.  
-    - If you use this code, substitute $text for %text% in future steps.
+* Code for Windows Command Prompt:  
+    - If you use this code, substitute $text for %text% in future steps
 ```
 SET rstudio_username=<enter-your-new-RStudio-username>
 ```
@@ -90,7 +94,7 @@ SET docker_username=<enter-your-Docker-Hub-username>
 ECHO %docker_username%
 ```
  
-* Run the Docker container. 
+* Run the Docker container: 
 ```
 docker run -d -e USER=$rstudio_username -e PASSWORD=$rstudio_password -p 8787:8787 rocker/tidyverse
 ```
@@ -99,10 +103,10 @@ docker run -d -e USER=$rstudio_username -e PASSWORD=$rstudio_password -p 8787:87
     - Set the USER and PASSWORD environmental variables (-e)
     - Map a port from the inside of the Docker container to your browser (-p 8787:8787)
     - Name of the image used to build the container (rocker/tidyverse)
-* Once the "docker run" code is done running, navigate to localhost:8787 in your browser.
-* Login using the RStudio username and password you specified earlier.
-* Test out RStudio (this is the product of the container).
-* Stop the Docker container by listing the running containers and then using the container ID to stop it (delete the < > symbols).  
+* Once the "docker run" code is done running, navigate to localhost:8787 in your browser
+* Login using the RStudio username and password you specified earlier
+* Test out RStudio (this is the product of the container)
+* Stop the Docker container by listing the running containers and then using the container ID to stop it (delete the < > symbols):    
 ```
 docker ps
 ```
@@ -112,33 +116,69 @@ docker stop <paste-container-ID>
 
 ### 3: Build your own Docker container <a name="build"></a>
 
-### Tutorial 
+Now we'll build our own Docker container using the Rocker image as a template.  
 
-
-Write the Dockerfile
+* You should currently be in your home directory within the terminal (e.g., /Users/AmyKendig)
+* Navigate to the docker-rstudio-tuorial:
 ```
-cd <file path to docker-rstudio-tutorial>
+cd Desktop/docker-rstudio-tutorial
 ```
+* Create the Dockerfile by opening a text editor (note that the filename has no extension)
+* Example for Mac: 
 ```
 vi Dockerfile
 ```
+* Example for Windows: 
+```
+copy con Dockerfile
+```
+* Paste the following into the text editor:  
+    - vi: first type "i" to insert text
 ```
 FROM rocker/tidyverse:3.6.1
 RUN R --no-restore --no-save -e 'devtools::install_version("nlme", version="3.1-137")' -e 'devtools::install_version("ggplot2", version="3.1.1")'
+ADD myScript.R /home/rstudio/
 ```
-Build the container
+* Explanation of the code:  
+    - Start with the Rocker Tidyverse image, specify the version
+    - In R, install specific versions of nlme and ggplot2  
+    - Add the R script to the container
+* Exit the text editor:  
+    - vi: press [esc] button -> type ":wq" -> press [enter] button  
+    - copy con: press buttons [ctrl] and z -> press [enter] button  
+* Build the container:
 ```
-docker build -t <Docker username>/docker-rstudio-tutorial:1.0 .
+docker build -t $docker_username/docker-rstudio-tutorial:1.0 .
 ```
-Run your container and add your code
+* Explanation of the code:  
+    - Name the container name "whatever your username is/docker-rstudio-tutorial"
+    - Tag the container (-t) as version 1.0 in case you want to update it in the future
+    - The period indicates that the resources are in the current directory (we're inside docker-rstudio-tutorial)  
+* Run your container to test it out:  
+    - Remember to change $text to %text% if you did earlier
 ```
-docker run -d -e USER=<username> -e PASSWORD=<password> -p 8787:8787 -v <file path to docker-rstudio-tutorial>:/home/rstudio <Docker username>/docker-rstudio-tutorial:1.0
+docker run -d -e USER=$rstudio_username -e PASSWORD=$rstudio_password -p 8787:8787 $docker_username/docker-rstudio-tutorial:1.0
 ```
-Push image
+* Once the "docker run" code is done running, navigate to localhost:8787 in your browser
+* Login using the RStudio username and password you specified earlier
+* Push the image to your Docker Hub account:
 ```
 docker login
 ```
 ```
-docker push <Docker username>/docker-rstudio-tutorial:1.0
+docker push $docker_username/docker-rstudio-tutorial:1.0
 ```
-
+* Stop the Docker container by listing the running containers and then using the container ID to stop it (delete the < > symbols):  
+```
+docker ps
+```
+```
+docker stop <paste-container-ID>
+```
+* Try running your neighbor's container if you're in a workshop:
+```
+docker pull <insert-their-docker-username>/docker-rstudio-tutorial:1.0
+```
+```
+docker run -d -e USER=$rstudio_username -e PASSWORD=$rstudio_password -p 8787:8787 <insert-their-docker-username>/docker-rstudio-tutorial:1.0
+```
