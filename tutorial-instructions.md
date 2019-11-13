@@ -11,6 +11,7 @@ Please install (or update) these programs:
 * R  
 * RStudio  
 * Docker Desktop or Toolbox*  
+Note: This tutorial may be difficult to complete on a Windows computer. The majority of Windows users I've worked with during two separate workshops were unable to install or use Docker.  
 
 R and RStudio installation guides from Data Carpentry can be found here: https://datacarpentry.org/R-ecology-lesson/index.html#setup_instructions  
 Open the programs and check for errors.  
